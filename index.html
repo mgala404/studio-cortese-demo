@@ -144,6 +144,21 @@ button, input, select, textarea { font: inherit; }
   position: relative;
   overflow: hidden;
 }
+/* La prima schermata si adatta allo schermo: testo, foto e barra riempiono la finestra sotto la testata (solo nella home) */
+.hero-shell:has(> .wrap > [data-page-section="home"].active-page) {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--head-h, 108px));
+  min-height: calc(100svh - var(--head-h, 108px));
+}
+.hero-shell > [data-page-section="home"].active-page { display: flex; flex-direction: column; flex: 1 1 auto; }
+.hero-shell > [data-page-section="home"].active-page .band { flex: 1 1 auto; display: flex; flex-direction: column; }
+.hero-shell > [data-page-section="home"].active-page .band-frame { flex: 1 1 auto; height: auto; min-height: clamp(200px, 22vw, 360px); }
+@media (max-height: 820px) and (min-width: 761px) {
+  .hero-shell .intro { padding-block: 24px 18px; }
+  .hero-shell .intro h1 { font-size: clamp(2.2rem, 3.6vw, 3rem); }
+  .hero-shell .intro-right p { font-size: clamp(1.05rem, 1.5vw, 1.25rem); }
+}
 .rosetta-svg {
   position: absolute;
   z-index: 0;
@@ -197,6 +212,14 @@ nav.menu a.btn.oro, .head-actions .btn.oro { color: var(--navy-dark); }
 nav.menu a[aria-current="page"]:not(.btn)::after { transform: scaleX(1); transform-origin: left; }
 @media (max-width: 760px) {
   .intro { grid-template-columns: 1fr; }
+  .hero-shell .intro { padding-block: 22px 18px; gap: 14px; }
+  .hero-shell .intro h1 { font-size: clamp(2.1rem, 9vw, 2.5rem); }
+  .hero-shell .intro-right { padding-bottom: 0; gap: 12px; }
+  .hero-shell .intro-right p { font-size: 1.05rem; line-height: 1.4; }
+  .intro-badges span { font-size: 0.68rem; padding: 4px 8px; }
+  .hero-shell .band-frame { min-height: 210px; }
+  .bar a { padding: 12px 14px; font-size: 1.05rem; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+  .bar a:last-child { border-bottom: 0; }
   .rosetta-svg { opacity: 0.35; width: 72vw; right: -22vw; top: -10%; }
   .menu-toggle { display: inline-flex; }
   .site-head nav.menu {
@@ -1100,6 +1123,7 @@ body.multipage [data-page-section].active-page {
   display: block !important;
   animation: fadePage 0.32s var(--ease-out);
 }
+body.multipage .hero-shell > [data-page-section="home"].active-page { display: flex !important; }
 @keyframes fadePage {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -2000,6 +2024,8 @@ function spiroG(R, r, dd, giri, passi = 2000) {
    3. ARCHITETTURA MULTIPAGINA (SEO/GEO) E TRADUZIONE DINAMICA IT · EN · FR
    ========================================================================== */
 if (/[?&]dev\b/.test(location.search)) document.body.classList.add("dev");
+const misuraTestata = () => { const h = document.querySelector(".site-head"); if (h) document.documentElement.style.setProperty("--head-h", h.offsetHeight + "px"); };
+misuraTestata(); addEventListener("resize", misuraTestata); addEventListener("load", misuraTestata);
 let curLang = "it"; window.curLang = curLang;
 let curPage = "home";
 let curLdf = "L";
