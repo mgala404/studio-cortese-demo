@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LDF Consulting Group · Studio Cortese &amp; Associati — Torino</title>
 <style>
+/* Font self-hosted (nessuna chiamata a server terzi): Cormorant Garamond per i titoli, Inter per testo e form */
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-regular.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-italic.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-500.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-600.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/inter-v20-latin_latin-ext-regular.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/inter-v20-latin_latin-ext-500.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/inter-v20-latin_latin-ext-600.woff2") format("woff2"); }
 /* ==========================================================================
    BASE TIPOGRAFICA E PALETTE «SABAUDO & CARTA VALORI» + DINAMICITÀ L·D·F
    ========================================================================== */
@@ -22,8 +30,8 @@
   --ok: #356946;
   --warn: #a67828;
   --bad: #9c3b30;
-  --serif: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, Garamond, serif;
-  --sans: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  --serif: "Cormorant Garamond", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --sans: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
@@ -34,12 +42,12 @@ body {
   margin: 0;
   background: var(--cream);
   color: var(--ink);
-  font: 400 1.01rem/1.65 var(--sans);
+  font: 400 0.97rem/1.65 var(--sans);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
-h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; margin: 0; line-height: 1.22; text-wrap: balance; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 500; margin: 0; line-height: 1.18; text-wrap: balance; }
 p { margin: 0; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; }
@@ -139,12 +147,21 @@ button, input, select, textarea { font: inherit; }
   position: absolute;
   z-index: 0;
   right: max(-180px, calc(50% - 860px));
-  top: -55px;
+  top: -140px;
   width: clamp(360px, 40vw, 540px);
   height: auto;
   pointer-events: none;
   transition: transform 0.25s ease-out;
   will-change: transform;
+}
+.site-head {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(244, 240, 232, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
 }
 header.top {
   position: relative;
@@ -152,10 +169,47 @@ header.top {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px 28px;
+  gap: 12px 28px;
   flex-wrap: wrap;
-  padding-block: 22px;
-  border-bottom: 1px solid rgba(34, 31, 88, 0.1);
+  padding-block: 14px;
+}
+.head-actions { display: flex; align-items: center; gap: 10px; }
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--navy);
+  padding: 9px 12px;
+  font: 600 0.72rem/1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.lang-inline { display: inline-flex; align-items: center; margin-left: 6px; }
+.lang-inline .lang-btn { color: var(--muted); padding: 4px 6px; font-size: 0.68rem; }
+.lang-inline .lang-btn + .lang-btn { border-left: 1px solid var(--line); }
+.lang-inline .lang-btn[aria-pressed="true"] { background: transparent; color: var(--navy); text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+.lang-inline .lang-btn:hover:not([aria-pressed="true"]) { background: transparent; color: var(--navy); }
+nav.menu a.btn { color: var(--white); }
+nav.menu a.btn.oro, .head-actions .btn.oro { color: var(--navy-dark); }
+nav.menu a[aria-current="page"]:not(.btn)::after { transform: scaleX(1); transform-origin: left; }
+@media (max-width: 760px) {
+  .menu-toggle { display: inline-flex; }
+  .site-head nav.menu {
+    display: none;
+    order: 3;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0 8px;
+    border-top: 1px solid var(--line);
+    font-size: 1rem;
+  }
+  header.top.open nav.menu { display: flex; }
+  .head-actions { order: 2; }
+  .head-actions .btn { padding: 10px 12px; }
+  .lang-inline { margin-left: 0; }
 }
 .logo {
   display: flex;
@@ -165,11 +219,11 @@ header.top {
   color: var(--navy);
 }
 .logo b {
-  font: 400 clamp(1.85rem, 3.3vw, 2.35rem)/1 var(--serif);
+  font: 500 clamp(1.7rem, 2.8vw, 2.1rem)/1 var(--serif);
   letter-spacing: 0.04em;
 }
 .logo span {
-  font: italic 400 0.96rem/1.1 var(--serif);
+  font: italic 400 1.02rem/1.1 var(--serif);
   color: var(--gold-dark);
 }
 nav.menu {
@@ -177,7 +231,7 @@ nav.menu {
   gap: 8px 24px;
   flex-wrap: wrap;
   align-items: center;
-  font-size: 0.93rem;
+  font-size: 0.9rem;
 }
 nav.menu a {
   text-decoration: none;
@@ -214,9 +268,9 @@ nav.menu a:not(.btn):hover::after {
   letter-spacing: 0.07em;
   text-transform: uppercase;
   padding: 12px 18px;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease;
 }
-.btn:hover { background: var(--navy-dark); transform: translateY(-1px); }
+.btn:hover { background: var(--navy-dark); }
 .btn.oro { background: var(--gold); color: var(--navy-dark); }
 .btn.oro:hover { background: #b2844e; }
 
@@ -231,7 +285,9 @@ nav.menu a:not(.btn):hover::after {
 }
 .intro h1 {
   color: var(--navy);
-  font-size: clamp(2.05rem, 4.2vw, 3.1rem);
+  font-size: clamp(2.7rem, 5.2vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
 }
 .intro h1 em {
   font-style: italic;
@@ -242,7 +298,7 @@ nav.menu a:not(.btn):hover::after {
   gap: 16px;
 }
 .intro-right p {
-  font: 400 clamp(1.12rem, 1.85vw, 1.32rem)/1.52 var(--serif);
+  font: 400 clamp(1.25rem, 2vw, 1.5rem)/1.45 var(--serif);
   color: #2f313b;
 }
 .intro-badges {
@@ -301,7 +357,7 @@ nav.menu a:not(.btn):hover::after {
   text-decoration: none;
   text-align: center;
   padding: 16px 14px;
-  font: 400 1.04rem/1.2 var(--serif);
+  font: 500 1.15rem/1.2 var(--serif);
   border-right: 1px solid rgba(255, 255, 255, 0.2);
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -322,7 +378,7 @@ nav.menu a:not(.btn):hover::after {
   justify-items: center;
   margin-bottom: 36px;
 }
-.testa h2 { color: var(--navy); font-size: clamp(1.6rem, 3vw, 2.15rem); }
+.testa h2 { color: var(--navy); font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
 .testa p { color: var(--muted); max-width: 44em; }
 
 .ldf-matrix {
@@ -330,7 +386,6 @@ nav.menu a:not(.btn):hover::after {
   grid-template-columns: repeat(3, 1fr);
   background: var(--white);
   border: 1px solid var(--line);
-  box-shadow: 0 10px 30px rgba(34, 31, 88, 0.05);
 }
 .ldf-card {
   background: var(--white);
@@ -360,15 +415,17 @@ nav.menu a:not(.btn):hover::after {
 }
 .ldf-letter {
   font-family: var(--serif);
-  font-size: clamp(3.1rem, 5.2vw, 4.3rem);
-  line-height: 0.9;
+  font-weight: 400;
+  font-size: clamp(4rem, 6.4vw, 6rem);
+  line-height: 0.88;
   color: var(--navy);
-  transition: color 0.25s ease, transform 0.25s ease;
+  padding-bottom: 6px;
+  box-shadow: inset 0 -1px 0 var(--gold);
+  transition: color 0.25s ease;
 }
 .ldf-card[aria-selected="true"] .ldf-letter,
 .ldf-card:hover .ldf-letter {
   color: var(--gold-dark);
-  transform: translateX(3px);
 }
 .ldf-badge {
   font-size: 0.72rem;
@@ -377,7 +434,7 @@ nav.menu a:not(.btn):hover::after {
   text-transform: uppercase;
   color: var(--muted);
 }
-.ldf-card h3 { font-size: 1.38rem; color: var(--navy); }
+.ldf-card h3 { font-size: 1.55rem; color: var(--navy); }
 .ldf-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
 .ldf-pills {
   display: flex;
@@ -479,7 +536,7 @@ nav.menu a:not(.btn):hover::after {
   margin-top: 6px;
 }
 .fatti-grid b {
-  font: 400 1.7rem/1.1 var(--serif);
+  font: 500 2rem/1.1 var(--serif);
   color: var(--navy);
   display: block;
 }
@@ -491,17 +548,16 @@ nav.menu a:not(.btn):hover::after {
   background: var(--white);
   padding: 26px 22px;
   border: 1px solid var(--line);
-  border-top: 3px solid var(--gold);
   display: grid;
   gap: 12px;
   align-content: space-between;
-  transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  box-shadow: inset 0 0 0 transparent;
+  transition: box-shadow 0.25s var(--ease-out);
 }
 .percorso-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(34, 31, 88, 0.08);
+  box-shadow: inset 0 2px 0 var(--gold);
 }
-.percorso-card h3 { font-size: 1.26rem; color: var(--navy); }
+.percorso-card h3 { font-size: 1.45rem; color: var(--navy); }
 .percorso-card .chi { font-size: 0.88rem; color: var(--muted); }
 .percorso-card ul { margin: 0; padding-left: 1.1em; font-size: 0.9rem; display: grid; gap: 5px; }
 .percorso-link {
@@ -583,7 +639,7 @@ input[type="range"].range-slider {
   gap: 16px;
 }
 .cifra-grande {
-  font: 400 clamp(2rem, 3.8vw, 2.65rem)/1.05 var(--serif);
+  font: 500 clamp(2.2rem, 4vw, 2.9rem)/1.05 var(--serif);
   color: var(--navy);
 }
 
@@ -604,9 +660,9 @@ input[type="range"].range-slider {
   overflow: hidden;
 }
 .seg-netto { background: var(--navy); transition: width 0.35s var(--ease-out); }
-.seg-contr { background: var(--gold); transition: width 0.35s var(--ease-out); }
-.seg-imp { background: #9c3b30; transition: width 0.35s var(--ease-out); }
-.seg-costi { background: #8c909e; transition: width 0.35s var(--ease-out); }
+.seg-contr { background: #6b6fa8; transition: width 0.35s var(--ease-out); }
+.seg-imp { background: #a9abd0; transition: width 0.35s var(--ease-out); }
+.seg-costi { background: #d6d4e6; transition: width 0.35s var(--ease-out); }
 .bar-legend {
   display: flex;
   flex-wrap: wrap;
@@ -671,22 +727,21 @@ input[type="range"].range-slider {
   border: 1px solid var(--line);
   display: grid;
   align-content: space-between;
-  transition: transform 0.25s var(--ease-out), border-color 0.25s ease;
+  transition: border-color 0.25s ease;
 }
 .persona-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--gold);
+  border-color: var(--navy);
 }
 .persona-card.evidenza {
   border-color: var(--navy);
   box-shadow: 0 10px 26px rgba(34, 31, 88, 0.1);
 }
-.ritratto-box { aspect-ratio: 1 / 1; background: #e5ded0; overflow: hidden; position: relative; }
-.ritratto-box img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.45s var(--ease-out); }
+.ritratto-box { aspect-ratio: 4 / 5; background: #e5ded0; overflow: hidden; position: relative; }
+.ritratto-box img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; display: block; filter: saturate(0.82) contrast(1.03); transition: transform 0.45s var(--ease-out); }
 .persona-card:hover .ritratto-box img { transform: scale(1.04); }
 .persona-body { padding: 16px 18px 18px; display: grid; gap: 6px; }
-.persona-body .ruolo { font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600; }
-.persona-body h3 { font-size: 1.22rem; color: var(--navy); }
+.persona-body .ruolo { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.persona-body h3 { font-size: 1.4rem; color: var(--navy); }
 .persona-body p { font-size: 0.87rem; color: var(--muted); line-height: 1.5; }
 .firma-svg {
   height: 26px;
@@ -872,7 +927,7 @@ input[type="range"].range-slider {
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
 }
-.contatti-grid h3 { color: var(--navy); font-size: 1.25rem; margin-bottom: 6px; }
+.contatti-grid h3 { color: var(--navy); font-size: 1.4rem; margin-bottom: 6px; }
 table.orari { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
 table.orari td { padding: 5px 0; border-bottom: 1px solid var(--line); }
 table.orari td:last-child { text-align: right; }
@@ -881,6 +936,12 @@ table.orari tr.oggi td { color: var(--navy); font-weight: 700; }
 footer { background: var(--navy-dark); color: var(--white); padding-block: 44px 24px; }
 footer .wrap { display: grid; gap: 24px; }
 .footer-top { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; border-bottom: 1px solid rgba(255,255,255,0.16); padding-bottom: 20px; }
+.footer-grid { display: grid; grid-template-columns: 1.15fr 1fr 1fr; gap: 28px; border-bottom: 1px solid rgba(255,255,255,0.16); padding-bottom: 26px; font-size: 0.86rem; color: rgba(253,252,249,0.82); }
+.footer-grid h4 { font: 600 0.68rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.footer-grid p { margin: 0 0 6px; }
+.footer-grid a { color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(192,147,95,0.5); }
+.footer-grid .live-pill { margin-top: 8px; }
+.footer-grid .live-scad { color: #e8c79b; display: block; border: 0; }
 
 /* ==========================================================================
    SELETTORE LINGUA (IT · EN · FR), ARCHITETTURA MULTIPAGINA E ANTI-TEXT-WALL
@@ -917,6 +978,7 @@ footer .wrap { display: grid; gap: 24px; }
 
 /* Barra architettura Multipagina SEO vs Scroll unico */
 .arch-bar {
+  display: none;
   background: var(--cream-deep);
   border-bottom: 1px solid var(--line);
   padding-block: 8px;
@@ -926,6 +988,7 @@ footer .wrap { display: grid; gap: 24px; }
   z-index: 30;
   backdrop-filter: blur(8px);
 }
+body.dev .arch-bar { display: block; top: 62px; z-index: 29; }
 .arch-bar .wrap {
   display: flex;
   justify-content: space-between;
@@ -1069,7 +1132,8 @@ body.multipage [data-page-section].active-page {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--navy);
+  opacity: 0.45;
   display: inline-block;
 }
 
@@ -1203,31 +1267,14 @@ details.nota-legale summary {
   .intro, .ldf-stage, .studio-sez .wrap, .tool-grid, .prenota-sez .wrap { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
-  .ldf-matrix, .percorsi-grid, .persone-grid, .note-grid, .contatti-grid, .fatti-grid, .slots-grid, .ldf-stage-list, .bar, .method-flow, .calc-visual-head {
+  .ldf-matrix, .percorsi-grid, .persone-grid, .note-grid, .contatti-grid, .fatti-grid, .slots-grid, .ldf-stage-list, .bar, .method-flow, .calc-visual-head, .footer-grid {
     grid-template-columns: 1fr;
   }
+  #hero-thumbs { display: none !important; }
 }
 </style>
 </head>
 <body class="multipage">
-
-<!-- BARRA DI STATO LIVE IN TESTATA + SELETTORE LINGUA IT · EN · FR -->
-<div class="live-bar">
-  <div class="wrap">
-    <div class="live-pill">
-      <span class="pulse-dot" id="live-dot"></span>
-      <span id="live-stato">Studio aperto · Riceviamo su appuntamento a Torino e in videochiamata</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
-      <a class="live-scad num" href="#osservatorio" data-goto-page="osservatorio" id="live-scad-link"></a>
-      <div class="lang-switch" role="group" aria-label="Lingua del sito / Site language">
-        <button type="button" class="lang-btn" data-lang="it" aria-pressed="true">IT</button>
-        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- BARRA ARCHITETTURA MULTIPAGINA (INDICIZZAZIONE SEO/GEO PER AREA E LINGUA) -->
 <div class="arch-bar">
@@ -1250,23 +1297,35 @@ details.nota-legale summary {
   </div>
 </div>
 
+<!-- TESTATA UNICA (fissa allo scorrimento): logotipo, sezioni, lingua, prenotazione -->
+<div class="site-head">
+  <div class="wrap">
+    <header class="top" id="site-top">
+      <a class="logo" href="#home" data-goto-page="home"><b>LDF</b><span>consulting group · Studio Cortese &amp; Associati</span></a>
+      <nav class="menu" aria-label="Sezioni del sito">
+        <a href="#studio" data-goto-page="home" data-i18n="menu_studio" aria-current="page">Lo Studio</a>
+        <a href="#ldf-core" data-goto-page="ldf" data-i18n="menu_ldf">Legal · Digital · Fiscal</a>
+        <a href="#strumenti" data-goto-page="strumenti" data-i18n="menu_tools">Strumenti 2026</a>
+        <a href="#professionisti" data-goto-page="team" data-i18n="menu_team">Professionisti</a>
+        <a href="#osservatorio" data-goto-page="osservatorio" data-i18n="menu_obs">Osservatorio</a>
+        <a href="#contatti" data-goto-page="contatti" data-i18n="menu_contact">Contatti</a>
+        <div class="lang-inline" role="group" aria-label="Lingua del sito / Site language">
+          <button type="button" class="lang-btn" data-lang="it" aria-pressed="true">IT</button><button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button><button type="button" class="lang-btn" data-lang="fr" aria-pressed="false">FR</button>
+        </div>
+      </nav>
+      <div class="head-actions">
+        <a class="btn oro" href="#prenota" data-goto-page="contatti" data-i18n="menu_cta">Prenota una call</a>
+        <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-top">Menu</button>
+      </div>
+    </header>
+  </div>
+</div>
+
 <!-- HERO CON GUILLOCHÉ REATTIVO E IMMAGINE PANORAMICA -->
 <div class="hero-shell" id="hero-shell">
   <svg class="rosetta-svg traccia" id="rosetta" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
 
   <div class="wrap">
-    <header class="top">
-      <a class="logo" href="#home" data-goto-page="home"><b>LDF</b><span>consulting group · Studio Cortese &amp; Associati</span></a>
-      <nav class="menu" aria-label="Sezioni del sito">
-        <a href="#ldf-core" data-goto-page="ldf" data-i18n="menu_ldf">Legal · Digital · Fiscal</a>
-        <a href="#studio" data-goto-page="home" data-i18n="menu_studio">Lo Studio</a>
-        <a href="#strumenti" data-goto-page="strumenti" data-i18n="menu_tools">Strumenti 2026</a>
-        <a href="#professionisti" data-goto-page="team" data-i18n="menu_team">Professionisti</a>
-        <a href="#osservatorio" data-goto-page="osservatorio" data-i18n="menu_obs">Osservatorio</a>
-        <a href="#contatti" data-goto-page="contatti" data-i18n="menu_contact">Contatti</a>
-        <a class="btn" href="#prenota" data-goto-page="contatti" data-i18n="menu_cta">Prenota una call</a>
-      </nav>
-    </header>
 
     <!-- CONTENUTO HERO + IMMAGINE (VISIBILE NELLA PAGINA HOME) -->
     <div data-page-section="home" class="active-page">
@@ -1277,11 +1336,6 @@ details.nota-legale summary {
           <div class="intro-badges">
             <span data-i18n="badge_1987">Studio Legale dal 1987</span>
             <span data-i18n="badge_1995">Revisione Legale dal 1995</span>
-            <span style="padding:2px 6px;display:inline-flex;gap:4px;align-items:center;">
-              <button type="button" class="lang-btn" data-lang="it" aria-pressed="true" style="color:var(--navy);padding:2px 6px;">IT</button>·
-              <button type="button" class="lang-btn" data-lang="en" aria-pressed="false" style="color:var(--navy);padding:2px 6px;">EN</button>·
-              <button type="button" class="lang-btn" data-lang="fr" aria-pressed="false" style="color:var(--navy);padding:2px 6px;">FR</button>
-            </span>
           </div>
         </div>
       </div>
@@ -1559,7 +1613,7 @@ details.nota-legale summary {
             <svg viewBox="0 0 42 42">
               <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#e9e2d4" stroke-width="5"></circle>
               <circle id="donut-net" cx="21" cy="21" r="15.915" fill="transparent" stroke="var(--navy)" stroke-width="5" stroke-dasharray="70 30" stroke-dashoffset="0"></circle>
-              <circle id="donut-tax" cx="21" cy="21" r="15.915" fill="transparent" stroke="var(--gold)" stroke-width="5" stroke-dasharray="20 80" stroke-dashoffset="-70"></circle>
+              <circle id="donut-tax" cx="21" cy="21" r="15.915" fill="transparent" stroke="#a9abd0" stroke-width="5" stroke-dasharray="20 80" stroke-dashoffset="-70"></circle>
             </svg>
             <div class="donut-center">
               <b class="num" id="donut-pct">70%</b>
@@ -1595,9 +1649,9 @@ details.nota-legale summary {
           </div>
           <div class="bar-legend">
             <span><i style="background:var(--navy)"></i>Netto</span>
-            <span><i style="background:var(--gold)"></i>Contributi</span>
-            <span><i style="background:#9c3b30"></i>Imposte</span>
-            <span><i style="background:#8c909e"></i>Costi reali</span>
+            <span><i style="background:#6b6fa8"></i>Contributi</span>
+            <span><i style="background:#a9abd0"></i>Imposte</span>
+            <span><i style="background:#d6d4e6"></i>Costi reali</span>
           </div>
         </div>
 
@@ -1814,17 +1868,32 @@ details.nota-legale summary {
 
 <footer>
   <div class="wrap">
-    <div class="footer-top">
+    <div class="footer-top" style="border-bottom:0;padding-bottom:0;">
       <div>
-        <b style="font:400 1.9rem/1 var(--serif);letter-spacing:0.04em;">LDF</b>
-        <span style="display:block;font:italic 0.92rem var(--serif);color:var(--gold);margin-top:4px;">consulting group · Studio Cortese &amp; Associati</span>
-      </div>
-      <div style="font-size:0.86rem;color:rgba(255,255,255,0.8);text-align:right;">
-        Corso Germano Sommeiller 31, 10128 Torino · Tel. <span class="num">011 59 32 57</span><br>
-        P.IVA <span class="num">02854110018</span> · <span data-i18n="ft_cookies">Nessun cookie di profilazione</span>
+        <b style="font:500 2rem/1 var(--serif);letter-spacing:0.04em;">LDF</b>
+        <span style="display:block;font:italic 1rem var(--serif);color:var(--gold);margin-top:4px;">consulting group · Studio Cortese &amp; Associati</span>
       </div>
     </div>
-    <div style="font-size:0.78rem;color:rgba(255,255,255,0.68);" data-i18n="ft_deont">
+    <div class="footer-grid">
+      <div>
+        <h4 data-i18n="ft_sede">Sede e ricevimento</h4>
+        <p>Corso Germano Sommeiller 31, 10128 Torino<br>Tel. <a href="tel:+39011593257" class="num">011 59 32 57</a> · Lun–Ven <span class="num">8:30–19:00</span></p>
+        <div class="live-pill"><span class="pulse-dot" id="live-dot"></span><span id="live-stato"></span></div>
+      </div>
+      <div>
+        <h4 data-i18n="ft_albi">Iscrizioni e albi</h4>
+        <p data-i18n="ft_1987">Studio legale dal 1987 · Avv. Rosalba Tubère</p>
+        <p data-i18n="ft_1995">Revisore legale n. 16217 dal 1995 · Dott. Maurizio Cortese</p>
+        <p>P.IVA <span class="num">02854110018</span></p>
+      </div>
+      <div>
+        <h4 data-i18n="ft_agenda">Agenda fiscale</h4>
+        <a class="live-scad num" href="#osservatorio" data-goto-page="osservatorio" id="live-scad-link"></a>
+        <p style="margin-top:10px;" data-i18n="ft_lang">Lingue di lavoro: italiano, inglese, francese</p>
+        <p data-i18n="ft_cookies">Nessun cookie di profilazione</p>
+      </div>
+    </div>
+    <div style="font-size:0.76rem;color:rgba(255,255,255,0.62);" data-i18n="ft_deont">
       © 2026 LDF Consulting Group · Avvocati e Dottori Commercialisti. Informazioni rese nel rispetto del Codice deontologico forense e del Codice deontologico dei Dottori Commercialisti ed Esperti Contabili.
     </div>
   </div>
@@ -1975,6 +2044,7 @@ function spiroG(R, r, dd, giri, passi = 2000) {
 /* ==========================================================================
    3. ARCHITETTURA MULTIPAGINA (SEO/GEO) E TRADUZIONE DINAMICA IT · EN · FR
    ========================================================================== */
+if (/[?&]dev\b/.test(location.search)) document.body.classList.add("dev");
 let curLang = "it";
 let curPage = "home";
 let curLdf = "L";
@@ -2029,6 +2099,7 @@ const I18N = {
     lbl_name: "Nome e cognome", lbl_phone: "Telefono", lbl_mode: "Modalità", lbl_msg: "Due righe sulla vostra situazione (o riepilogo dagli Strumenti)",
     lbl_priv: "Ho letto l'informativa privacy e acconsento a essere ricontattato dallo Studio.", btn_submit: "Richiedi l'appuntamento →", lbl_sla: "Riscontro garantito entro un giorno lavorativo.",
     cnt_phone: "Telefono", cnt_sec: "Segreteria attiva dal lunedì al venerdì con orario continuato.", cnt_hq: "Sede di Torino", cnt_hours: "Orari di Studio",
+    ft_sede: "Sede e ricevimento", ft_albi: "Iscrizioni e albi", ft_agenda: "Agenda fiscale", ft_1987: "Studio legale dal 1987 · Avv. Rosalba Tubère", ft_1995: "Revisore legale n. 16217 dal 1995 · Dott. Maurizio Cortese", ft_lang: "Lingue di lavoro: italiano, inglese, francese",
     ft_cookies: "Nessun cookie di profilazione", ft_deont: "© 2026 LDF Consulting Group · Avvocati e Dottori Commercialisti. Informazioni rese nel rispetto del Codice deontologico forense e dei Dottori Commercialisti."
   },
   en: {
@@ -2074,6 +2145,7 @@ const I18N = {
     lbl_name: "Full name", lbl_phone: "Phone", lbl_mode: "Meeting format", lbl_msg: "Brief summary of your matter (or simulator output)",
     lbl_priv: "I have read the privacy notice and consent to be contacted by the Firm.", btn_submit: "Request Appointment →", lbl_sla: "Response guaranteed within 1 business day.",
     cnt_phone: "Phone", cnt_sec: "Reception open Monday to Friday, 8:30 AM – 7:00 PM.", cnt_hq: "Turin Office", cnt_hours: "Office Hours",
+    ft_sede: "Office and appointments", ft_albi: "Registrations", ft_agenda: "Tax calendar", ft_1987: "Law firm since 1987 · Avv. Rosalba Tubère", ft_1995: "Statutory auditor no. 16217 since 1995 · Dott. Maurizio Cortese", ft_lang: "Working languages: Italian, English, French",
     ft_cookies: "No profiling cookies", ft_deont: "© 2026 LDF Consulting Group · Lawyers and Chartered Accountants in Turin. Compliant with the Italian Bar and Chartered Accountants Codes of Ethics."
   },
   fr: {
@@ -2119,6 +2191,7 @@ const I18N = {
     lbl_name: "Nom et prénom", lbl_phone: "Téléphone", lbl_mode: "Modalité", lbl_msg: "Résumé de votre situation (ou résultat du simulateur)",
     lbl_priv: "J'ai lu la politique de confidentialité et j'accepte d'être recontacté par le Cabinet.", btn_submit: "Demander le rendez-vous →", lbl_sla: "Réponse garantie sous 24h ouvrées.",
     cnt_phone: "Téléphone", cnt_sec: "Secrétariat ouvert du lundi au vendredi en continu (8h30–19h00).", cnt_hq: "Siège de Turin", cnt_hours: "Horaires d'ouverture",
+    ft_sede: "Siège et rendez-vous", ft_albi: "Inscriptions", ft_agenda: "Agenda fiscal", ft_1987: "Cabinet d'avocats depuis 1987 · Me Rosalba Tubère", ft_1995: "Commissaire aux comptes n° 16217 depuis 1995 · Dott. Maurizio Cortese", ft_lang: "Langues de travail : italien, anglais, français",
     ft_cookies: "Aucun cookie de profilage", ft_deont: "© 2026 LDF Consulting Group · Avocats et Experts-Comptables à Turin."
   }
 };
@@ -2433,6 +2506,11 @@ function gotoPage(pageKey, scrollTargetId) {
   document.querySelectorAll("[data-page-section]").forEach(sec => {
     sec.classList.toggle("active-page", sec.dataset.pageSection === pageKey);
   });
+  document.querySelectorAll("nav.menu a[data-goto-page]:not(.btn)").forEach(a => {
+    if (a.dataset.gotoPage === pageKey) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  chiudiMenu();
   updateSeoUrl();
   if (document.body.classList.contains("multipage")) {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -2443,6 +2521,16 @@ function gotoPage(pageKey, scrollTargetId) {
 }
 document.querySelectorAll(".page-tab[data-page-btn]").forEach(btn => {
   btn.addEventListener("click", () => gotoPage(btn.dataset.pageBtn));
+});
+function chiudiMenu() {
+  const top = document.getElementById("site-top"), tg = document.getElementById("menu-toggle");
+  if (top) top.classList.remove("open");
+  if (tg) tg.setAttribute("aria-expanded", "false");
+}
+document.getElementById("menu-toggle").addEventListener("click", () => {
+  const top = document.getElementById("site-top");
+  const aperto = top.classList.toggle("open");
+  document.getElementById("menu-toggle").setAttribute("aria-expanded", String(aperto));
 });
 document.addEventListener("click", e => {
   const g = e.target.closest("[data-goto-page]");

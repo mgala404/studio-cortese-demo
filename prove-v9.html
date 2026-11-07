@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDF · Prove grafiche v9 (da scegliere)</title>
+<style>
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-regular.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-italic.woff2") format("woff2"); }
+@font-face { font-family: "Cormorant Garamond"; font-style: normal; font-weight: 500; font-display: swap; src: url("fonts/cormorant-garamond-v21-latin_latin-ext-500.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/inter-v20-latin_latin-ext-regular.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-style: normal; font-weight: 600; font-display: swap; src: url("fonts/inter-v20-latin_latin-ext-600.woff2") format("woff2"); }
+:root {
+  --cream: #f4f0e8; --cream-deep: #ebe4d6; --white: #fdfcf9; --ink: #22242c; --muted: #5c5f68;
+  --navy: #221f58; --navy-dark: #16143c; --gold: #c0935f; --gold-dark: #8a6436; --line: #dfd8ca;
+  --serif: "Cormorant Garamond", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--ink); font: 400 0.97rem/1.6 var(--sans); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; margin: 0; line-height: 1.1; color: var(--navy); }
+.wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
+.num { font-variant-numeric: lining-nums tabular-nums; }
+.etic { font: 600 0.7rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dark); }
+.guida { background: var(--navy-dark); color: rgba(253,252,249,0.9); padding: 22px 0; font-size: 0.9rem; }
+.guida b { color: #e8c79b; }
+.prova { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
+.prova > .wrap > h2 { font-size: 2rem; margin: 6px 0 4px; }
+.prova .nota { color: var(--muted); max-width: 60em; margin: 0 0 24px; }
+.variante { margin: 0 0 40px; }
+.variante .tag { display: inline-block; background: var(--navy); color: var(--white); font: 600 0.7rem/1 var(--sans); letter-spacing: 0.1em; padding: 6px 10px; margin-bottom: 12px; }
+.traccia path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.traccia.attiva path { animation: disegna var(--dur, 2s) var(--ease-out) forwards; animation-delay: var(--rit, 0s); }
+@keyframes disegna { to { stroke-dashoffset: 0; } }
+
+/* ---- Prova 1: guilloché ---- */
+.hero-prova { position: relative; overflow: hidden; background: var(--cream); border: 1px solid var(--line); min-height: 420px; display: grid; align-items: center; }
+.hero-prova .testo { position: relative; z-index: 1; padding: 56px clamp(20px, 6vw, 80px); display: grid; gap: 22px; }
+.hero-prova h1 { font-size: clamp(2.6rem, 5vw, 4.4rem); line-height: 1.04; letter-spacing: -0.01em; max-width: 11em; }
+.hero-prova h1 em { font-style: italic; color: var(--gold-dark); }
+.hero-prova p { font: 400 1.4rem/1.45 var(--serif); color: #2f313b; max-width: 30em; margin: 0; }
+.ros { position: absolute; pointer-events: none; }
+.ros.centro { left: 50%; top: 50%; width: min(560px, 90vw); transform: translate(-50%, -50%); opacity: 0.55; }
+.ros.destra { right: clamp(10px, 5vw, 70px); top: 50%; width: min(380px, 42vw); transform: translateY(-50%); }
+.v1a .testo { text-align: center; justify-items: center; }
+.v1a .testo p { text-align: center; }
+.v1b .testo { max-width: 62%; }
+.divisore { display: block; width: 100%; height: 20px; margin: 28px 0 0; }
+@media (max-width: 760px) { .v1b .testo { max-width: 100%; } .ros.destra { opacity: 0.35; width: 70vw; right: -20vw; } }
+
+/* ---- Prova 2: foto ---- */
+.banda { position: relative; height: clamp(240px, 42vw, 500px); overflow: hidden; background: #1d1b42; }
+.banda img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; opacity: 0; transform: scale(1.04); transition: opacity 1.6s ease, transform 9s var(--ease-out); }
+.banda img.on { opacity: 1; transform: scale(1); }
+.banda .didasc { position: absolute; left: clamp(16px, 4vw, 48px); bottom: 20px; z-index: 2; font: italic 400 1.25rem/1.2 var(--serif); color: #f2e3c9; text-shadow: 0 1px 10px rgba(0,0,0,0.55); }
+.banda .didasc small { display: block; font: 600 0.66rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.banda .frecce { position: absolute; right: 18px; bottom: 18px; z-index: 2; display: flex; gap: 6px; }
+.banda .frecce button { width: 36px; height: 36px; border: 1px solid rgba(253,252,249,0.45); background: rgba(22,20,60,0.45); color: #fdfcf9; cursor: pointer; font-size: 1rem; backdrop-filter: blur(4px); }
+.banda .frecce button:hover { background: rgba(22,20,60,0.8); }
+.banda .punti { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 2; display: flex; gap: 8px; }
+.banda .punti i { width: 22px; height: 2px; background: rgba(253,252,249,0.4); }
+.banda .punti i.on { background: var(--gold); }
+.barra-sotto { display: grid; grid-template-columns: repeat(3, 1fr); background: var(--navy); }
+.barra-sotto a { color: var(--white); text-decoration: none; text-align: center; padding: 16px 14px; font: 500 1.15rem/1.2 var(--serif); border-right: 1px solid rgba(255,255,255,0.2); }
+.barra-sotto a:last-child { border-right: 0; }
+
+/* ---- Prova 3: prospetto ---- */
+.pros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.prospetto { background: var(--white); border: 1px solid var(--line); padding: 26px 28px; }
+.prospetto .intest { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--navy); padding-bottom: 10px; margin-bottom: 6px; }
+.prospetto .intest h3 { font-size: 1.5rem; }
+.prospetto .intest span { font: 600 0.68rem/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.prospetto table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.prospetto td { padding: 9px 0; border-bottom: 1px solid var(--line); }
+.prospetto td:last-child { text-align: right; font-variant-numeric: lining-nums tabular-nums; white-space: nowrap; }
+.prospetto td small { display: block; color: var(--muted); font-size: 0.78rem; }
+.prospetto tr.tot td { border-bottom: 0; padding-top: 16px; }
+.prospetto tr.tot td:first-child { font: 500 1.3rem/1 var(--serif); color: var(--navy); }
+.prospetto tr.tot td:last-child { font: 500 2.4rem/1 var(--serif); color: var(--navy); }
+.prospetto .confronto { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.86rem; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; }
+.prospetto .confronto b { color: var(--navy); }
+.tot-riga { display: flex; align-items: center; gap: 18px; padding-top: 16px; }
+.donut { width: 72px; height: 72px; flex: 0 0 72px; transform: rotate(-90deg); }
+.tot-riga .cifra { font: 500 2.4rem/1 var(--serif); color: var(--navy); }
+.tot-riga .sotto { font-size: 0.82rem; color: var(--muted); }
+.pila { height: 10px; display: flex; overflow: hidden; margin: 14px 0 6px; background: #e9e2d4; }
+.pila i { display: block; height: 100%; }
+.legenda { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.74rem; color: var(--muted); }
+.legenda i { display: inline-block; width: 9px; height: 9px; margin-right: 5px; vertical-align: middle; }
+@media (max-width: 760px) { .pros-grid { grid-template-columns: 1fr; } }
+.cta-scelta { padding: 40px 0 70px; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="guida"><div class="wrap">
+  <b>Prove grafiche v9 · LDF Consulting Group.</b> Tre elementi della demo, ognuno in due varianti da confrontare: si sceglie una variante per prova (o nessuna). Numeri dei prospetti presi dal simulatore con 55.000 € di ricavi. La demo vera è in <a href="index.html" style="color:#e8c79b;">index.html</a>.
+</div></div>
+
+<!-- ===================== PROVA 1 ===================== -->
+<section class="prova"><div class="wrap">
+  <span class="etic">Prova 1 · Guilloché come firma</span>
+  <h2>Dove sta la rosetta nell'apertura</h2>
+  <p class="nota">Oggi la rosetta è in alto a destra, tagliata dal bordo. Qui è intera: al centro dietro il titolo (1A) oppure a destra, piena, col titolo a sinistra (1B). Sotto ogni variante, lo stesso motivo in miniatura come divisore tra le sezioni (20 px): un motivo in tre scale, la rosetta, la fascia e il divisore, diventa identità.</p>
+
+  <div class="variante v1a">
+    <span class="tag">1A · CENTRATA DIETRO IL TITOLO</span>
+    <div class="hero-prova">
+      <svg class="ros centro traccia" id="ros-a" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
+      <div class="testo">
+        <h1>Avvocati e dottori commercialisti, <em>nello stesso studio</em>.</h1>
+        <p>A Torino affianchiamo imprese, professionisti ed enti con un'unica regia legale, fiscale e digitale.</p>
+      </div>
+    </div>
+    <svg class="divisore traccia" id="div-a" viewBox="0 0 1200 20" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+
+  <div class="variante v1b">
+    <span class="tag">1B · A DESTRA, INTERA</span>
+    <div class="hero-prova">
+      <svg class="ros destra traccia" id="ros-b" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
+      <div class="testo">
+        <h1>Avvocati e dottori commercialisti, <em>nello stesso studio</em>.</h1>
+        <p>A Torino affianchiamo imprese, professionisti ed enti con un'unica regia legale, fiscale e digitale.</p>
+      </div>
+    </div>
+    <svg class="divisore traccia" id="div-b" viewBox="0 0 1200 20" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+</div></section>
+
+<!-- ===================== PROVA 2 ===================== -->
+<section class="prova"><div class="wrap">
+  <span class="etic">Prova 2 · Foto a tutta larghezza</span>
+  <h2>Senza la barra delle miniature numerate</h2>
+  <p class="nota">Le foto cambiano da sole ogni 8 secondi con una dissolvenza lenta. Didascalia in corsivo in basso a sinistra. 2A ha due frecce discrete per chi vuole scegliere; 2B ha solo tre trattini di posizione, nessun comando. Sotto resta la barra blu di accesso rapido.</p>
+
+  <div class="variante">
+    <span class="tag">2A · DIDASCALIA + FRECCE</span>
+    <div class="banda" data-banda>
+      <img src="img/interni-sala.jpg" alt="" class="on" data-did="Sala riunioni · Tavolo tondo e librerie storiche">
+      <img src="img/interni-corridoio.jpg" alt="" data-did="Ingresso e prospettiva dello Studio">
+      <div class="didasc"><small>La sede · Corso Sommeiller 31, Torino</small><span data-testo>Sala riunioni · Tavolo tondo e librerie storiche</span></div>
+      <div class="frecce"><button type="button" data-prev aria-label="Foto precedente">‹</button><button type="button" data-next aria-label="Foto successiva">›</button></div>
+    </div>
+    <nav class="barra-sotto"><a href="#">Esplora le 3 anime L · D · F →</a><a href="#">Simulatori gratuiti 2026 →</a><a href="#">Consulenza conoscitiva (30 min) →</a></nav>
+  </div>
+
+  <div class="variante">
+    <span class="tag">2B · DIDASCALIA + TRATTINI, NESSUN COMANDO</span>
+    <div class="banda" data-banda>
+      <img src="img/interni-corridoio.jpg" alt="" class="on" data-did="Ingresso e prospettiva dello Studio">
+      <img src="img/interni-sala.jpg" alt="" data-did="Sala riunioni · Tavolo tondo e librerie storiche">
+      <div class="didasc"><small>La sede · Corso Sommeiller 31, Torino</small><span data-testo>Ingresso e prospettiva dello Studio</span></div>
+      <div class="punti"><i class="on"></i><i></i></div>
+    </div>
+    <nav class="barra-sotto"><a href="#">Esplora le 3 anime L · D · F →</a><a href="#">Simulatori gratuiti 2026 →</a><a href="#">Consulenza conoscitiva (30 min) →</a></nav>
+  </div>
+</div></section>
+
+<!-- ===================== PROVA 3 ===================== -->
+<section class="prova"><div class="wrap">
+  <span class="etic">Prova 3 · Risultato dei simulatori</span>
+  <h2>Il risultato come prospetto, non come grafico</h2>
+  <p class="nota">Stesso esempio del simulatore (55.000 € di ricavi, attività professionale, Gestione separata, 8.000 € di costi reali). 3A: estratto conto con voce a sinistra e importo a destra, ciambella piccola accanto al totale. 3B: stesso prospetto senza ciambella, con una sola barra sottile in tre toni di blu.</p>
+
+  <div class="pros-grid">
+    <div class="variante">
+      <span class="tag">3A · PROSPETTO + CIAMBELLA</span>
+      <div class="prospetto">
+        <div class="intest"><h3>Regime forfettario</h3><span>Valori 2026</span></div>
+        <table class="num">
+          <tr><td>Ricavi o compensi</td><td>55.000 €</td></tr>
+          <tr><td>Costi reali sostenuti<small>non deducibili nel forfettario</small></td><td>− 8.000 €</td></tr>
+          <tr><td>Contributi INPS<small>Gestione separata 26,07 % su 42.900 € imponibili</small></td><td>− 11.184 €</td></tr>
+          <tr><td>Imposta sostitutiva 15 %<small>su 31.716 € (imponibile meno contributi)</small></td><td>− 4.757 €</td></tr>
+        </table>
+        <div class="tot-riga">
+          <svg class="donut" viewBox="0 0 42 42" aria-hidden="true">
+            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#e9e2d4" stroke-width="4"></circle>
+            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#221f58" stroke-width="4" stroke-dasharray="56 44" stroke-dashoffset="0"></circle>
+            <circle cx="21" cy="21" r="15.915" fill="transparent" stroke="#a9abd0" stroke-width="4" stroke-dasharray="29 71" stroke-dashoffset="-56"></circle>
+          </svg>
+          <div><div class="cifra num">31.059 €</div><div class="sotto">restano in tasca · 56 € netti ogni 100 € incassati</div></div>
+        </div>
+        <div class="confronto"><span>Ordinario semplificato, stesso caso</span><b class="num">26.081 € · 47 %</b></div>
+      </div>
+    </div>
+
+    <div class="variante">
+      <span class="tag">3B · PROSPETTO + BARRA SOTTILE</span>
+      <div class="prospetto">
+        <div class="intest"><h3>Regime forfettario</h3><span>Valori 2026</span></div>
+        <table class="num">
+          <tr><td>Ricavi o compensi</td><td>55.000 €</td></tr>
+          <tr><td>Costi reali sostenuti<small>non deducibili nel forfettario</small></td><td>− 8.000 €</td></tr>
+          <tr><td>Contributi INPS<small>Gestione separata 26,07 % su 42.900 € imponibili</small></td><td>− 11.184 €</td></tr>
+          <tr><td>Imposta sostitutiva 15 %<small>su 31.716 € (imponibile meno contributi)</small></td><td>− 4.757 €</td></tr>
+          <tr class="tot"><td>Netto</td><td>31.059 €</td></tr>
+        </table>
+        <div class="pila"><i style="width:56.5%;background:#221f58"></i><i style="width:20.3%;background:#6b6fa8"></i><i style="width:8.6%;background:#a9abd0"></i><i style="width:14.6%;background:#d6d4e6"></i></div>
+        <div class="legenda"><span><i style="background:#221f58"></i>Netto 56 %</span><span><i style="background:#6b6fa8"></i>Contributi 20 %</span><span><i style="background:#a9abd0"></i>Imposte 9 %</span><span><i style="background:#d6d4e6"></i>Costi 15 %</span></div>
+        <div class="confronto"><span>Ordinario semplificato, stesso caso</span><b class="num">26.081 € · 47 %</b></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<div class="cta-scelta"><div class="wrap">Scelta attesa: una variante per prova (1A/1B, 2A/2B, 3A/3B) oppure «lascia com'è». Le varianti scelte entrano in index.html; il resto si butta.</div></div>
+
+<script>
+const NS = "http://www.w3.org/2000/svg", fmt = n => n.toFixed(2);
+function lineaG(svg, d, col, w, op, dur, rit) {
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("d", d); p.setAttribute("fill", "none");
+  p.setAttribute("stroke", col); p.setAttribute("stroke-width", w); p.setAttribute("stroke-opacity", op);
+  p.setAttribute("pathLength", 1);
+  p.style.setProperty("--dur", dur + "s"); p.style.setProperty("--rit", rit + "s");
+  svg.appendChild(p);
+}
+function polareG(fr, passi = 1100) {
+  let d = "";
+  for (let i = 0; i <= passi; i++) { const t = i / passi * Math.PI * 2, r = fr(t); d += (i ? "L" : "M") + fmt(r * Math.cos(t)) + " " + fmt(r * Math.sin(t)); }
+  return d + "Z";
+}
+function spiroG(R, r, dd, giri, passi = 2000) {
+  let d = "";
+  for (let i = 0; i <= passi; i++) {
+    const t = i / passi * Math.PI * 2 * giri, k = (R - r) / r;
+    d += (i ? "L" : "M") + fmt((R - r) * Math.cos(t) + dd * Math.cos(k * t)) + " " + fmt((R - r) * Math.sin(t) - dd * Math.sin(k * t));
+  }
+  return d;
+}
+function rosetta(svg, opNavy, opGold) {
+  for (let i = 0; i < 16; i++) lineaG(svg, polareG(t => 260 + 14 * Math.sin(36 * t + i * Math.PI / 8)), "#221f58", 0.7, opNavy, 2, i * 0.03);
+  for (let i = 0; i < 12; i++) lineaG(svg, polareG(t => 212 + 21 * Math.sin(24 * t + i * Math.PI / 6) * Math.cos(3 * t)), "#c0935f", 0.8, opGold, 2, 0.15 + i * 0.04);
+  for (let i = 0; i < 4; i++) lineaG(svg, spiroG(162, 60, 50 - i * 5, 4), "#221f58", 0.6, opNavy, 1.8, 0.35 + i * 0.06);
+}
+function divisore(svg) {
+  for (let i = 0; i < 6; i++) {
+    let d = "";
+    for (let x = 0; x <= 1200; x += 4) d += (x ? "L" : "M") + x + " " + fmt(10 + 6 * Math.sin(x / 1200 * Math.PI * 2 * 38 + i * Math.PI / 3) * Math.cos(x / 1200 * Math.PI * 2 * 3));
+    lineaG(svg, d, i % 3 ? "#221f58" : "#c0935f", 0.6, i % 3 ? 0.16 : 0.45, 2.2, 0.2 + i * 0.05);
+  }
+}
+rosetta(document.getElementById("ros-a"), 0.16, 0.34);
+rosetta(document.getElementById("ros-b"), 0.22, 0.48);
+divisore(document.getElementById("div-a")); divisore(document.getElementById("div-b"));
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("attiva"); io.unobserve(e.target); } }), { threshold: 0.2 });
+document.querySelectorAll(".traccia").forEach(s => io.observe(s));
+
+document.querySelectorAll("[data-banda]").forEach(b => {
+  const imgs = [...b.querySelectorAll("img")], did = b.querySelector("[data-testo]"), punti = [...b.querySelectorAll(".punti i")];
+  let k = 0, timer;
+  const vai = n => {
+    imgs[k].classList.remove("on"); punti[k] && punti[k].classList.remove("on");
+    k = (n + imgs.length) % imgs.length;
+    imgs[k].classList.add("on"); punti[k] && punti[k].classList.add("on");
+    did.textContent = imgs[k].dataset.did;
+  };
+  const avvia = () => { clearInterval(timer); timer = setInterval(() => vai(k + 1), 8000); };
+  b.querySelector("[data-prev]")?.addEventListener("click", () => { vai(k - 1); avvia(); });
+  b.querySelector("[data-next]")?.addEventListener("click", () => { vai(k + 1); avvia(); });
+  avvia();
+});
+</script>
+</body>
+</html>
