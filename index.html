@@ -147,10 +147,9 @@ button, input, select, textarea { font: inherit; }
 .rosetta-svg {
   position: absolute;
   z-index: 0;
-  right: 0;
-  top: 50%;
-  translate: 0 -50%;
-  width: clamp(300px, 34vw, 400px);
+  right: -8%;
+  top: -30%;
+  width: clamp(280px, 30vw, 360px);
   height: auto;
   pointer-events: none;
   transition: transform 0.25s ease-out;
@@ -198,7 +197,7 @@ nav.menu a.btn.oro, .head-actions .btn.oro { color: var(--navy-dark); }
 nav.menu a[aria-current="page"]:not(.btn)::after { transform: scaleX(1); transform-origin: left; }
 @media (max-width: 760px) {
   .intro { grid-template-columns: 1fr; }
-  .rosetta-svg { opacity: 0.35; width: 72vw; right: -22vw; }
+  .rosetta-svg { opacity: 0.35; width: 72vw; right: -22vw; top: -10%; }
   .menu-toggle { display: inline-flex; }
   .site-head nav.menu {
     display: none;
@@ -283,14 +282,15 @@ nav.menu a:not(.btn):hover::after {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 62%);
-  gap: 22px;
-  padding-block: clamp(44px, 7vw, 92px) clamp(36px, 5vw, 64px);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: end;
+  gap: clamp(24px, 4vw, 56px);
+  padding-block: clamp(36px, 5vw, 60px) clamp(26px, 3.5vw, 40px);
 }
 .intro h1, .intro-right { position: relative; z-index: 1; }
 .intro h1 {
   color: var(--navy);
-  font-size: clamp(2.7rem, 5.2vw, 4.5rem);
+  font-size: clamp(2.5rem, 4.4vw, 3.8rem);
   line-height: 1.04;
   letter-spacing: -0.01em;
 }
@@ -301,6 +301,7 @@ nav.menu a:not(.btn):hover::after {
 .intro-right {
   display: grid;
   gap: 16px;
+  padding-bottom: 8px;
 }
 .intro-right p {
   font: 400 clamp(1.25rem, 2vw, 1.5rem)/1.45 var(--serif);
@@ -554,17 +555,24 @@ nav.menu a:not(.btn):hover::after {
 .fatti-grid span { font-size: 0.8rem; color: var(--muted); line-height: 1.3; }
 
 .percorsi-sez { padding-block: clamp(48px, 6.5vw, 84px); border-bottom: 1px solid var(--line); }
-.percorsi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.percorsi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
 .percorso-card {
   background: var(--white);
-  padding: 26px 22px;
+  padding: 26px 28px 24px;
   border: 1px solid var(--line);
   display: grid;
-  gap: 12px;
-  align-content: space-between;
+  grid-template-columns: 42px 1fr;
+  grid-template-rows: auto auto 1fr auto;
+  column-gap: 18px;
+  row-gap: 10px;
   box-shadow: inset 0 0 0 transparent;
   transition: box-shadow 0.25s var(--ease-out);
 }
+.percorso-card > div:first-child { display: contents; }
+.percorso-card .percorso-icon { grid-column: 1; grid-row: 1 / span 4; align-self: start; margin: 0; }
+.percorso-card h3, .percorso-card .chi, .percorso-card .chip-list, .percorso-card .percorso-link { grid-column: 2; }
+.percorso-card .chip-list { align-self: start; margin-top: 2px; }
+.percorso-card .percorso-link { margin-top: 12px; }
 .percorso-card:hover {
   box-shadow: inset 0 2px 0 var(--gold);
 }
@@ -1130,6 +1138,7 @@ body.multipage [data-page-section].active-page {
 }
 .method-step-num {
   font: 600 0.72rem/1 var(--sans);
+  white-space: nowrap;
   letter-spacing: 0.1em;
   color: var(--gold-dark);
 }
@@ -1163,8 +1172,8 @@ body.multipage [data-page-section].active-page {
   gap: 6px;
   background: var(--cream);
   border: 1px solid var(--line);
-  padding: 5px 10px;
-  font-size: 0.8rem;
+  padding: 5px 9px;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--navy);
 }
@@ -1311,6 +1320,7 @@ details.nota-legale summary {
     grid-template-columns: 1fr;
   }
   .art-copertina, .art-copertina img { max-height: 240px; }
+  .percorso-card { padding: 22px 20px 20px; column-gap: 14px; }
   #hero-thumbs { display: none !important; }
 }
 </style>
@@ -1466,15 +1476,15 @@ details.nota-legale summary {
       <img data-foto="interni-corridoio" src="img/interni-corridoio.jpg" alt="Il corridoio dello studio, pareti verdi e arredi d'epoca">
     </div>
     <div class="studio-testo reveal reveal-d1">
-      <p class="occhiello" data-i18n="st_eye">Lo Studio · Corso Sommeiller 31, Torino</p>
-      <h2 data-i18n="st_h2">Un unico tavolo per scelte legali, fiscali e societarie.</h2>
-      <p data-i18n="st_desc">Dall'esperienza forense dell'Avv. Rosalba Tubère (1987) e tributaria del Dott. Maurizio Cortese (Revisore dal 1995), un metodo in tre passaggi che elimina i passaggi a vuoto tra studi diversi:</p>
+      <p class="occhiello" data-i18n="st_eye">Il metodo · Corso Sommeiller 31, Torino</p>
+      <h2 data-i18n="st_h2">Come lavoriamo: tre passaggi, un solo interlocutore.</h2>
+      <p data-i18n="st_desc">Lo Studio nasce dall'esperienza forense dell'Avv. Rosalba Tubère (dal 1987) e tributaria del Dott. Maurizio Cortese (Revisore dal 1995). Ogni pratica segue lo stesso percorso:</p>
 
       <!-- Diagramma visuale in 3 step (sostituisce i lunghi paragrafi di testo) -->
       <div class="method-flow">
         <div class="method-step">
           <div class="method-step-head">
-            <span class="method-step-num">STEP 01 · 30 MIN</span>
+            <span class="method-step-num">01 · 30 MIN</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
           </div>
           <b data-i18n="m1_t">Inquadramento</b>
@@ -1482,7 +1492,7 @@ details.nota-legale summary {
         </div>
         <div class="method-step">
           <div class="method-step-head">
-            <span class="method-step-num">STEP 02 · SINERGIA</span>
+            <span class="method-step-num">02 · SINERGIA</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="12" r="5"/><circle cx="15" cy="12" r="5"/></svg>
           </div>
           <b data-i18n="m2_t">Doppia Lente L+F</b>
@@ -1490,7 +1500,7 @@ details.nota-legale summary {
         </div>
         <div class="method-step">
           <div class="method-step-head">
-            <span class="method-step-num">STEP 03 · AZIONE</span>
+            <span class="method-step-num">03 · AZIONE</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           </div>
           <b data-i18n="m3_t">Piano &amp; Presidio</b>
@@ -1502,7 +1512,7 @@ details.nota-legale summary {
         <div><b class="num" data-count="1987">1987</b><span data-i18n="kpi_1">fondazione studio legale</span></div>
         <div><b class="num" data-count="1995">1995</b><span data-i18n="kpi_2">iscrizione Registro Revisori</span></div>
         <div><b class="num" data-count="22" data-suffix="+">22+</b><span data-i18n="kpi_3">analisi nell'Osservatorio</span></div>
-        <div><b>IT · EN · FR</b><span data-i18n="kpi_4">lingue di lavoro in Studio</span></div>
+        <div><b>3</b><span data-i18n="kpi_4">lingue di lavoro: IT · EN · FR</span></div>
       </div>
     </div>
   </div>
@@ -2083,12 +2093,12 @@ const I18N = {
     ldf_l_badge: "Dal 1987 · Area Legale", ldf_l_title: "Legal & Societario", ldf_l_desc: "Societario, crisi d'impresa (CCII), responsabilità medica e civile, arbitrato internazionale.",
     ldf_d_badge: "Innovazione & Compliance", ldf_d_title: "Digital, AI & Startup", ldf_d_desc: "AI Act europeo, GDPR e diritto all'oblio, startup innovative, criptovalute e crowdfunding.",
     ldf_f_badge: "Dal 1995 · Area Tributaria", ldf_f_title: "Fiscal & Revisione Legale", ldf_f_desc: "Pianificazione fiscale, revisione legale (n. 16217), finanza strutturata, enti e forfettario.",
-    st_eye: "Lo Studio · Corso Sommeiller 31, Torino", st_h2: "Un unico tavolo per scelte legali, fiscali e societarie.",
-    st_desc: "Dall'esperienza forense dell'Avv. Rosalba Tubère (1987) e tributaria del Dott. Maurizio Cortese (Revisore dal 1995), un metodo in tre passaggi che elimina i passaggi a vuoto:",
+    st_eye: "Il metodo · Corso Sommeiller 31, Torino", st_h2: "Come lavoriamo: tre passaggi, un solo interlocutore.",
+    st_desc: "Lo Studio nasce dall'esperienza forense dell'Avv. Rosalba Tubère (dal 1987) e tributaria del Dott. Maurizio Cortese (Revisore dal 1995). Ogni pratica segue lo stesso percorso:",
     m1_t: "Inquadramento", m1_d: "Colloquio di 30 min in Studio o videochiamata sul caso concreto.",
     m2_t: "Doppia Lente L+F", m2_d: "Avvocato e commercialista vagliano insieme rischi e numeri.",
     m3_t: "Piano & Presidio", m3_d: "Parere unico, atti societari, controllo periodico e scadenze.",
-    kpi_1: "fondazione studio legale", kpi_2: "iscrizione Registro Revisori", kpi_3: "analisi nell'Osservatorio", kpi_4: "lingue di lavoro in Studio",
+    kpi_1: "fondazione studio legale", kpi_2: "iscrizione Registro Revisori", kpi_3: "analisi nell'Osservatorio", kpi_4: "lingue di lavoro: IT · EN · FR",
     perc_eye: "Per chi lavoriamo", perc_h2: "Partite dalla vostra situazione",
     p1_t: "Partite IVA e Professionisti", p1_d: "Apertura attività, casse previdenziali e scelta del regime fiscale.", p1_cta: "Simula il forfettario 2026 →",
     p2_t: "Imprese e PMI", p2_d: "Governance societaria, tutela degli amministratori e accesso al credito.", p2_cta: "Verifica adeguati assetti →",
@@ -2129,12 +2139,12 @@ const I18N = {
     ldf_l_badge: "Since 1987 · Legal Practice", ldf_l_title: "Legal & Corporate", ldf_l_desc: "Corporate law, insolvency & crisis code (CCII), medical & civil liability, international arbitration.",
     ldf_d_badge: "Innovation & Compliance", ldf_d_title: "Digital, AI & Startups", ldf_d_desc: "European AI Act, GDPR & right to be forgotten, innovative startups, crypto assets & crowdfunding.",
     ldf_f_badge: "Since 1995 · Tax & Audit", ldf_f_title: "Fiscal & Statutory Audit", ldf_f_desc: "Corporate tax planning, statutory audit (reg. 16217), structured finance, non-profit entities & flat-tax.",
-    st_eye: "The Firm · Corso Sommeiller 31, Turin", st_h2: "One single table for legal, tax and corporate decisions.",
-    st_desc: "Built on the legal practice founded by Avv. Rosalba Tubère (1987) and the tax & audit firm led by Dott. Maurizio Cortese (Auditor since 1995), in three clear steps:",
+    st_eye: "Our method · Corso Sommeiller 31, Turin", st_h2: "How we work: three steps, one point of contact.",
+    st_desc: "The Firm grows out of the legal practice of Avv. Rosalba Tubère (since 1987) and the tax and audit practice of Dott. Maurizio Cortese (Auditor since 1995). Every matter follows the same path:",
     m1_t: "30-Min Scoping", m1_d: "Initial meeting in Turin or video call focused on your concrete case.",
     m2_t: "Dual L+F Lens", m2_d: "Lawyer and Chartered Accountant jointly assess contracts and numbers.",
     m3_t: "Action & Governance", m3_d: "Unified opinion, corporate deeds, ongoing monitoring and filings.",
-    kpi_1: "law firm founded", kpi_2: "Statutory Audit registration", kpi_3: "published legal/tax notes", kpi_4: "working languages",
+    kpi_1: "law firm founded", kpi_2: "Statutory Audit registration", kpi_3: "published legal/tax notes", kpi_4: "working languages: IT · EN · FR",
     perc_eye: "Who we advise", perc_h2: "Start from your profile",
     p1_t: "Professionals & Sole Traders", p1_d: "Setting up business, social security funds and flat-tax vs ordinary regime.", p1_cta: "Simulate 2026 Flat-Tax →",
     p2_t: "Companies & SMEs", p2_d: "Corporate governance, directors' liability protection and bank credit (DSCR).", p2_cta: "Run Art. 2086 Governance Check →",
@@ -2175,12 +2185,12 @@ const I18N = {
     ldf_l_badge: "Depuis 1987 · Pôle Juridique", ldf_l_title: "Legal & Droit des Sociétés", ldf_l_desc: "Droit des sociétés, prévention des difficultés (CCII), responsabilité médicale et civile, arbitrage international.",
     ldf_d_badge: "Innovation & Conformité", ldf_d_title: "Digital, IA & Startups", ldf_d_desc: "Règlement européen AI Act, RGPD et droit à l'oubli, startups innovantes, crypto-actifs et crowdfunding.",
     ldf_f_badge: "Depuis 1995 · Pôle Fiscal", ldf_f_title: "Fiscal & Audit Légal", ldf_f_desc: "Planification fiscale, commissariat aux comptes (n° 16217), finance structurée, organismes publics et forfait.",
-    st_eye: "Le Cabinet · Corso Sommeiller 31, Turin", st_h2: "Un interlocuteur unique pour vos choix juridiques et fiscaux.",
-    st_desc: "Né de l'union du cabinet fondé par Me Rosalba Tubère (1987) et du cabinet fiscal et d'audit dirigé par M. Maurizio Cortese (1995), en trois étapes claires :",
+    st_eye: "Notre méthode · Corso Sommeiller 31, Turin", st_h2: "Notre façon de travailler : trois étapes, un seul interlocuteur.",
+    st_desc: "Le Cabinet est né de la pratique juridique de Me Rosalba Tubère (depuis 1987) et de la pratique fiscale et d'audit de M. Maurizio Cortese (auditeur depuis 1995). Chaque dossier suit le même parcours :",
     m1_t: "Cadrage 30 min", m1_d: "Premier entretien au Cabinet à Turin ou en visioconférence.",
     m2_t: "Double Regard L+F", m2_d: "L'avocat et l'expert-comptable analysent ensemble contrats et chiffres.",
     m3_t: "Plan & Suivi", m3_d: "Avis unifié, actes sociaux, contrôle de gestion et échéances.",
-    kpi_1: "fondation cabinet juridique", kpi_2: "inscription Registre Auditeurs", kpi_3: "analyses publiées", kpi_4: "langues de travail",
+    kpi_1: "fondation cabinet juridique", kpi_2: "inscription Registre Auditeurs", kpi_3: "analyses publiées", kpi_4: "langues de travail : IT · EN · FR",
     perc_eye: "Pour qui travaillons-nous", perc_h2: "Partez de votre situation",
     p1_t: "Indépendants & Professions Libérales", p1_d: "Création d'activité, caisses de prévoyance et choix du régime fiscal.", p1_cta: "Simuler le régime forfaitaire →",
     p2_t: "Entreprises & PME", p2_d: "Gouvernance, protection des dirigeants (art. 2086) et financement bancaire.", p2_cta: "Vérifier la gouvernance (art. 2086) →",
