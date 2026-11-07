@@ -63,7 +63,8 @@ h1 em{font-style:italic;color:#e3c08f}
 .hero[data-size="l"]{--h1:clamp(2.9rem,6vw,5.6rem)}
 .hero[data-pos="centro"] .testo{margin-inline:auto;text-align:center;justify-items:center;max-width:40em}
 .hero[data-pos="centro"] h1{max-width:14em}
-.hero[data-pos="basso-largo"] .testo{max-width:none;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:end;gap:28px 56px}
+.hero[data-pos="basso-largo"] .testo{max-width:none;grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);align-items:end;gap:28px 48px}
+.hero[data-pos="basso-largo"][data-size="l"]{--h1:clamp(2.9rem,5.2vw,5rem)}
 .hero[data-pos="basso-largo"] h1{max-width:none;grid-row:1/3}
 .hero[data-pos="basso-largo"] .badges{grid-column:2}
 .hero[data-pos="riquadro"] .testo{background:rgba(24,22,64,.82);backdrop-filter:blur(6px);padding:clamp(28px,4vw,48px);border-left:3px solid var(--gold);max-width:36em}
