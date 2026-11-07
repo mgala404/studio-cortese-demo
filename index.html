@@ -143,32 +143,45 @@ button, input, select, textarea { font: inherit; }
 .hero-shell {
   position: relative;
   overflow: hidden;
+  background: var(--navy-dark);
 }
-/* La prima schermata si adatta allo schermo: testo, foto e barra riempiono la finestra sotto la testata (solo nella home) */
+/* L'apertura è alta quanto la finestra sotto la testata (solo nella home): foto a tutto campo, patina blu notte, testo sopra */
 .hero-shell:has(> .wrap > [data-page-section="home"].active-page) {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  align-items: center;
   min-height: calc(100vh - var(--head-h, 108px));
   min-height: calc(100svh - var(--head-h, 108px));
 }
-.hero-shell > [data-page-section="home"].active-page { display: flex; flex-direction: column; flex: 1 1 auto; }
-.hero-shell > [data-page-section="home"].active-page .band { flex: 1 1 auto; display: flex; flex-direction: column; }
-.hero-shell > [data-page-section="home"].active-page .band-frame { flex: 1 1 auto; height: auto; min-height: clamp(200px, 22vw, 360px); }
-@media (max-height: 820px) and (min-width: 761px) {
-  .hero-shell .intro { padding-block: 24px 18px; }
-  .hero-shell .intro h1 { font-size: clamp(2.2rem, 3.6vw, 3rem); }
-  .hero-shell .intro-right p { font-size: clamp(1.05rem, 1.5vw, 1.25rem); }
+.hero-foto { position: absolute; inset: 0; z-index: 0; }
+.hero-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; display: block; }
+.hero-foto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(24, 22, 64, 0.86) 0%, rgba(24, 22, 64, 0.64) 46%, rgba(24, 22, 64, 0.26) 100%),
+    linear-gradient(180deg, rgba(24, 22, 64, 0) 72%, rgba(24, 22, 64, 0.5) 100%);
 }
+.hero-shell > .wrap { position: relative; z-index: 1; width: 100%; }
+.hero-shell #rosetta path { stroke: #f2e3c9; }
 .rosetta-svg {
   position: absolute;
   z-index: 0;
-  right: -8%;
-  top: -30%;
-  width: clamp(280px, 30vw, 360px);
+  right: -3%;
+  top: 50%;
+  translate: 0 -50%;
+  width: clamp(320px, 36vw, 520px);
   height: auto;
+  opacity: 0.6;
   pointer-events: none;
   transition: transform 0.25s ease-out;
   will-change: transform;
+}
+.hero-didasc { position: absolute; right: clamp(16px, 3vw, 40px); bottom: 16px; z-index: 1; text-align: right; font: italic 400 1rem/1.2 var(--serif); color: rgba(242, 227, 201, 0.9); }
+.hero-didasc small { display: block; font: 600 0.62rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+@media (max-height: 820px) and (min-width: 761px) {
+  .hero-shell .intro { padding-block: 36px 48px; }
+  .hero-shell .intro h1 { font-size: clamp(2.3rem, 4vw, 3.4rem); }
 }
 .divisore { display: block; width: 100%; height: 20px; margin-bottom: 28px; }
 .site-head {
@@ -212,15 +225,14 @@ nav.menu a.btn.oro, .head-actions .btn.oro { color: var(--navy-dark); }
 nav.menu a[aria-current="page"]:not(.btn)::after { transform: scaleX(1); transform-origin: left; }
 @media (max-width: 760px) {
   .intro { grid-template-columns: 1fr; }
-  .hero-shell .intro { padding-block: 22px 18px; gap: 14px; }
-  .hero-shell .intro h1 { font-size: clamp(2.1rem, 9vw, 2.5rem); }
-  .hero-shell .intro-right { padding-bottom: 0; gap: 12px; }
-  .hero-shell .intro-right p { font-size: 1.05rem; line-height: 1.4; }
+  .hero-shell .intro { padding-block: 40px 72px; gap: 16px; }
+  .hero-shell .intro h1 { font-size: clamp(2.2rem, 9.5vw, 2.7rem); }
+  .hero-shell .intro-right { gap: 12px; }
+  .hero-shell .intro-right p { font-size: 1.08rem; line-height: 1.42; }
   .intro-badges span { font-size: 0.68rem; padding: 4px 8px; }
-  .hero-shell .band-frame { min-height: 210px; }
-  .bar a { padding: 12px 14px; font-size: 1.05rem; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
-  .bar a:last-child { border-bottom: 0; }
-  .rosetta-svg { opacity: 0.35; width: 72vw; right: -22vw; top: -10%; }
+  .hero-foto::after { background: linear-gradient(180deg, rgba(24, 22, 64, 0.72) 0%, rgba(24, 22, 64, 0.62) 60%, rgba(24, 22, 64, 0.8) 100%); }
+  .hero-didasc { right: 16px; bottom: 14px; font-size: 0.9rem; }
+  .rosetta-svg { opacity: 0.35; width: 80vw; right: -28vw; top: 50%; }
   .menu-toggle { display: inline-flex; }
   .site-head nav.menu {
     display: none;
@@ -305,30 +317,30 @@ nav.menu a:not(.btn):hover::after {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: end;
-  gap: clamp(24px, 4vw, 56px);
-  padding-block: clamp(36px, 5vw, 60px) clamp(26px, 3.5vw, 40px);
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  padding-block: clamp(48px, 9vh, 110px) clamp(64px, 10vh, 120px);
 }
 .intro h1, .intro-right { position: relative; z-index: 1; }
 .intro h1 {
-  color: var(--navy);
-  font-size: clamp(2.5rem, 4.4vw, 3.8rem);
+  color: #fdfcf9;
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  max-width: 12.5em;
   line-height: 1.04;
   letter-spacing: -0.01em;
 }
 .intro h1 em {
   font-style: italic;
-  color: var(--gold-dark);
+  color: #e3c08f;
 }
 .intro-right {
   display: grid;
-  gap: 16px;
-  padding-bottom: 8px;
+  gap: 18px;
+  max-width: 34em;
 }
 .intro-right p {
-  font: 400 clamp(1.25rem, 2vw, 1.5rem)/1.45 var(--serif);
-  color: #2f313b;
+  font: 400 clamp(1.2rem, 1.8vw, 1.45rem)/1.45 var(--serif);
+  color: rgba(253, 252, 249, 0.88);
 }
 .intro-badges {
   display: flex;
@@ -340,9 +352,9 @@ nav.menu a:not(.btn):hover::after {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 5px 11px;
-  background: rgba(253, 252, 249, 0.85);
-  border: 1px solid var(--line);
-  color: var(--navy);
+  background: rgba(253, 252, 249, 0.08);
+  border: 1px solid rgba(253, 252, 249, 0.38);
+  color: #fdfcf9;
   font-weight: 600;
 }
 
@@ -353,48 +365,10 @@ nav.menu a:not(.btn):hover::after {
   position: relative;
   z-index: 1;
   background: var(--cream);
+  padding-block: 10px;
+  box-sizing: content-box;
 }
 
-/* Immagine panoramica con lento movimento architettonico e barra d'accesso */
-.band { position: relative; z-index: 1; }
-.band-frame {
-  width: 100%;
-  height: clamp(240px, 39vw, 470px);
-  overflow: hidden;
-  background: #1d1b42;
-  position: relative;
-}
-.band-frame img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 55%;
-  display: block;
-  opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 1.6s ease, transform 9s var(--ease-out);
-}
-.band-frame img.on { opacity: 1; transform: scale(1); }
-.hero-didasc { position: absolute; left: clamp(16px, 4vw, 48px); bottom: 22px; z-index: 2; font: italic 400 1.25rem/1.2 var(--serif); color: #f2e3c9; text-shadow: 0 1px 10px rgba(0,0,0,0.55); }
-.hero-didasc small { display: block; font: 600 0.66rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-.bar {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background: var(--navy);
-}
-.bar a {
-  color: var(--white);
-  text-decoration: none;
-  text-align: center;
-  padding: 16px 14px;
-  font: 500 1.15rem/1.2 var(--serif);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background 0.2s ease, color 0.2s ease;
-}
-.bar a:last-child { border-right: 0; }
-.bar a:hover { background: var(--navy-dark); color: #ebd0ac; }
 
 /* ==========================================================================
    IL CUORE DINAMICO L · D · F (SPUNTO VERSIONE 3 NELL'ESTETICA VERSIONE 1)
@@ -1123,7 +1097,6 @@ body.multipage [data-page-section].active-page {
   display: block !important;
   animation: fadePage 0.32s var(--ease-out);
 }
-body.multipage .hero-shell > [data-page-section="home"].active-page { display: flex !important; }
 @keyframes fadePage {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1389,9 +1362,12 @@ details.nota-legale summary {
 
 <!-- HERO CON GUILLOCHÉ REATTIVO E IMMAGINE PANORAMICA -->
 <div class="hero-shell" id="hero-shell">
+  <div data-page-section="home" class="active-page hero-foto">
+    <img id="hero-main-img" data-foto="interni-sala" src="img/interni-sala.jpg" alt="La sala riunioni dello studio a Torino, con il tavolo tondo e le librerie in legno">
+    <div class="hero-didasc"><small data-i18n="ph_sede">La sede · Corso Sommeiller 31, Torino</small><span data-i18n="ph_sala">Sala riunioni · Tavolo tondo e librerie storiche</span></div>
+  </div>
   <div class="wrap">
-
-    <!-- CONTENUTO HERO + IMMAGINE (VISIBILE NELLA PAGINA HOME) -->
+    <!-- TESTO DELL'APERTURA SOPRA LA FOTO (VISIBILE NELLA PAGINA HOME) -->
     <div data-page-section="home" class="active-page">
       <div class="intro">
         <svg class="rosetta-svg traccia" id="rosetta" viewBox="-300 -300 600 600" aria-hidden="true"></svg>
@@ -1406,22 +1382,9 @@ details.nota-legale summary {
       </div>
     </div>
   </div>
-
-  <div data-page-section="home" class="active-page">
-    <svg class="fascia-svg traccia" id="fascia" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true"></svg>
-
-    <div class="band">
-      <div class="band-frame" id="band-frame">
-        <img id="hero-main-img" class="on" data-foto="interni-sala" src="img/interni-sala.jpg" alt="La sala riunioni dello studio a Torino, con il tavolo tondo e le librerie in legno">
-        <div class="hero-didasc"><small data-i18n="ph_sede">La sede · Corso Sommeiller 31, Torino</small><span data-i18n="ph_sala">Sala riunioni · Tavolo tondo e librerie storiche</span></div>
-      </div>
-      <nav class="bar" aria-label="Accesso rapido">
-        <a href="#ldf-core" data-goto-page="ldf" data-i18n="bar_1">Esplora le 3 anime L · D · F →</a>
-        <a href="#strumenti" data-goto-page="strumenti" data-i18n="bar_2">Simulatori gratuiti 2026 →</a>
-        <a href="#prenota" data-goto-page="contatti" data-i18n="bar_3">Consulenza conoscitiva (30 min) →</a>
-      </nav>
-    </div>
-  </div>
+</div>
+<div data-page-section="home" class="active-page">
+  <svg class="fascia-svg traccia" id="fascia" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true"></svg>
 </div>
 
 <!-- IL CUORE DINAMICO L · D · F (PAGINA DEDICATA O SEZIONE) -->
@@ -2007,7 +1970,6 @@ function spiroG(R, r, dd, giri, passi = 2000) {
   requestAnimationFrame(() => {
     ros.classList.add("attiva");
     fas.classList.add("attiva");
-    document.getElementById("band-frame").classList.add("zoom-ready");
   });
 
   // Parallasse gentile sulla rosetta guilloché al movimento del mouse
